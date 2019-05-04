@@ -103,7 +103,7 @@ def get_key_param(img):
 def segmenter(img):
     # green_img_path = sys.argv[1]
     # img = cv2.imread(green_img_path)
-    print img.shape
+    print (img.shape)
     # exit(1)
     key_param = get_key_param(img)
     cv2.namedWindow('controls')
