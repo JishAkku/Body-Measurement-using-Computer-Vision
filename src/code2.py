@@ -29,10 +29,10 @@ def squ_point(img, x, y, k):
 
 def click_and_crop(event, x, y, flags, param):
 	# grab references to the global variables
-	global refPt, cropping
- 	if event == cv2.EVENT_LBUTTONDOWN:
+ global refPt,cropping
+ if event == cv2.EVENT_LBUTTONDOWN:
 		pass
-	elif event == cv2.EVENT_LBUTTONUP:
+ elif event == cv2.EVENT_LBUTTONUP:
 		refPt.append4((x, y))
 
 # returns real-world distance between 2 points selected in image
@@ -289,8 +289,7 @@ def measure_distance(segmented_image,segmented_arm_image,arm_spread_image,waist_
 	dist1 = dist1/2
 	dist2 = dist2/2
 	perimeter = 2 * 3.1415 * math.sqrt((dist1*dist1 + dist2*dist2)/2)
-	print "waist",perimeter
-
+	print ("waist",perimeter)
 	head_pt = getHeadPoint(segmented_image)
 	# segmented_image = drawCircle(segmented_image, (head_pt[0],head_pt[1]), draw_radius)
 	image = drawCircle(image, (head_pt[0],head_pt[1]), draw_radius)
@@ -351,8 +350,8 @@ def measure_distance(segmented_image,segmented_arm_image,arm_spread_image,waist_
 	dist_sleeve = (dist5+dist4)/2.0
 	dist=dist1+dist2+dist3
 	dist_tuple=dist1,dist2,dist3
-	print "Shoulder Length",(dist+dist_ans)/2
-	print "Sleeve Length", (dist4+dist5)/2
+	print ("Shoulder Length",(dist+dist_ans)/2)
+	print ("Sleeve Length", (dist4+dist5)/2)
 
 
 def main():
@@ -374,10 +373,10 @@ def main():
 	metre_pixel_x,metre_pixel_y,coordinate,affine_correct_parameters=analyze_chessboard(image,affine_correct_flag)
 	
 	segmented_image=segment.segmenter(image)
-	print "Segmentation Completed 1"
+	print ("Segmentation Completed 1")
 
 	segmented_arm_image=segment.segmenter(arm_spread_image)
-	print "Segmentation Completed 2"
+	print ("Segmentation Completed 2")
 
 	cv2.imwrite("first.jpg",segmented_image)
 	cv2.imwrite("second.jpg",segmented_arm_image)
@@ -391,7 +390,7 @@ def main():
 		arm_spread_image=affine_correct(arm_spread_image,affine_correct_parameters)
 		waist_image=affine_correct(waist_image,affine_correct_parameters)
 		segmented_image=affine_correct(segmented_image,affine_correct_parameters)
-		print "Affine Corrected"
+		print ("Affine Corrected")
 
 	measure_distance(segmented_image,segmented_arm_image,arm_spread_image,waist_image,image,metre_pixel_x,metre_pixel_y)
 
